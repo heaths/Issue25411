@@ -1,0 +1,148 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Issue 25411",
+        "version": "2021-11-18"
+    },
+    "x-ms-parameterized-host": {
+        "hostTemplate": "{endpoint}",
+        "useSchemePrefix": false,
+        "parameters": [
+            {
+                "$ref": "#/parameters/Endpoint"
+            }
+        ]
+    },
+    "paths": {
+        "/jobs": {
+            "post": {
+                "summary": "Starts a new job.",
+                "operationId": "Jobs_Begin",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/ApiParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully started job.",
+                        "headers": {
+                            "Operation-Location": {
+                                "type": "string"
+                            }
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Job"
+                        }
+                    }
+                },
+                "x-ms-long-running-operation": true
+            },
+            "get": {
+                "summary": "Gets all jobs.",
+                "operationId": "Jobs_List",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/ApiParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gets all jobs.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Job"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/jobs/{jobId}": {
+            "get": {
+                "summary": "Gets a specific job.",
+                "operationId": "Jobs_Get",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "Job ID.",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-parameter-location": "method"
+                    },
+                    {
+                        "$ref": "#/parameters/ApiParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Gets a job.",
+                        "schema": {
+                            "$ref": "#/definitions/Job"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Job": {
+            "type": "object",
+            "description": "A job.",
+            "properties": {
+                "jobId": {
+                    "type": "string",
+                    "description": "Unique ID."
+                },
+                "status": {
+                    "type": "string",
+                    "description": "The job status.",
+                    "enum": [
+                        "running",
+                        "succeeded"
+                    ]
+                },
+                "createdDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The time the job was created."
+                }
+            },
+            "required": [
+                "id",
+                "status",
+                "created"
+            ],
+            "additionalProperties": true
+        }
+    },
+    "parameters": {
+        "Endpoint": {
+            "name": "endpoint",
+            "description": "The service URL.",
+            "x-ms-parameter-location": "client",
+            "required": true,
+            "type": "string",
+            "in": "path",
+            "x-ms-skip-url-encoding": true
+        },
+        "ApiParameter": {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Client API version."
+        }
+    }
+}

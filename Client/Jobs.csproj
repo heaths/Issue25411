@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <DefineConstants>$(DefineConstants);EXPERIMENTAL</DefineConstants>
+    <AzureCoreSharedSources Condition="'$(AzureCoreSharedSources)' == ''">C:\src\azure-sdk-for-net\sdk\core\Azure.Core\src\Shared\</AzureCoreSharedSources>
+    <IncludeGeneratorSharedCode>true</IncludeGeneratorSharedCode>
+    <RestoreAdditionalProjectSources>https://azuresdkartifacts.blob.core.windows.net/azure-sdk-tools/index.json</RestoreAdditionalProjectSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Core" Version="1.21.0-alpha.20211029.1" />
+    <PackageReference Include="Microsoft.Azure.AutoRest.CSharp" Version="3.0.0-beta.20211118.1" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Jobs": {
+      "commandName": "Project",
+      "commandLineArgs": "https://localhost:7041"
+    }
+  }
+}
